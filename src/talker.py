@@ -52,7 +52,7 @@ def talker():
 
     camera = PiCamera() # Raspberry pi camera
     # setup some camera properties
-    camera.resolution = (120,100)
+    camera.resolution = (160,112)
     camera.framerate = 50
     camera.contrast = 8
     camera.saturation = 5
