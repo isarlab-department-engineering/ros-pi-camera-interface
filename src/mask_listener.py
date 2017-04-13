@@ -21,15 +21,15 @@ def callback(data): # runs everytime an ImageMessage is uploaded on the topic
     rospy.loginfo(rospy.get_caller_id() + " Getting Camera Frames")
 
     bridge = CvBridge() # setup a CVbridge to convert from ImageMessage to CVimage
-    img = cv2.resize(bridge.imgmsg_to_cv2(data), (800,600)) # convert the image and resize it
-    cv2.imshow("Rospibot cam", img) # display the image
+    img = cv2.resize(bridge.imgmsg_to_cv2(data), (600,400)) # convert the image and resize it
+    cv2.imshow("Rospibot Red Mask", img) # display the image
     cv2.waitKey(2) # keep displaying the image
 
 def listener():
 
-    rospy.init_node('image_converter_listener', anonymous=True) # create a image_converter_listener node
+    rospy.init_node('red_mask_listener', anonymous=True) # create a image_converter_listener node
  
-    rospy.Subscriber("image_topic",Image,callback,queue_size=1) # subscribe to image_topic
+    rospy.Subscriber("red_mask_topic",Image,callback,queue_size=1) # subscribe to image_topic
 
     rospy.spin() # loop until shutdown
 
