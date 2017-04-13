@@ -52,7 +52,7 @@ def talker():
 
     camera = PiCamera() # Raspberry pi camera
     # setup some camera properties
-    #camera.resolution = (160,112)
+    camera.resolution = (120,100)
     camera.framerate = 50
     camera.contrast = 8
     camera.saturation = 5
@@ -63,7 +63,7 @@ def talker():
     time.sleep(2) # delay
     rawCapture = PiRGBArray(camera) # get a pixel array
 
-    rate = rospy.Rate(30) # publisher frequency
+    rate = rospy.Rate(1) # publisher frequency
     bridge = CvBridge() # setup CVbridge to convert from CVimage to ImageMessage
 
     while not rospy.is_shutdown(): # loop until shutdown
@@ -86,7 +86,8 @@ def talker():
 	camera.capture(rawCapture, format='bgr',use_video_port=True) # capture a frame on rawCapture
         pub.publish(bridge.cv2_to_imgmsg(rawCapture.array, 'bgr8')) # pulish the image on the topic
         rawCapture.truncate(0) # truncate the raw capture and free the buffer
-	rate.sleep
+	#rate.sleep
+	time.sleep(0.05)
 
 if __name__ == '__main__':
     try:
