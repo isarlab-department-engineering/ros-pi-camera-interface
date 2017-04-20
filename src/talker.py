@@ -9,6 +9,8 @@
 # GitHub repo: https://github.com/tanicar/rospibot_project
 #
 
+# add slow publish for stop lights detection
+
 from __future__ import print_function 
 import roslib 
 roslib.load_manifest('image_converter') 
