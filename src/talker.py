@@ -9,8 +9,6 @@
 # GitHub repo: https://github.com/tanicar/rospibot_project
 #
 
-# add slow publish for stop lights detection
-
 from __future__ import print_function 
 import roslib 
 roslib.load_manifest('image_converter') 
@@ -27,11 +25,13 @@ import serial
 
 def talker():
     pub = rospy.Publisher('image_topic', Image, queue_size=1) # publish on image_topic topic
+    slowpub = rospy.Publisher('slow_image_topic',Image,queue_size=1) # publish only some frames on slow image topic
     rospy.init_node('image_converter_talker', anonymous=True) # start a image_converter_talker node
 
     serialAvailable = 0
     serialInput = "no value yet"
     brightnessSensor = 0
+    count = 0 # counter for slow publish
 
     try:
    	serialPort = serial.Serial('/dev/ttyUSB0', 9600) # start the serial port
@@ -54,8 +54,8 @@ def talker():
 
     camera = PiCamera() # Raspberry pi camera
     # setup some camera properties
-    camera.resolution = (160,112)
-    camera.framerate = 50
+    camera.resolution = (160,128)
+    camera.framerate = 20
     camera.contrast = 8
     camera.saturation = 5
     camera.brightness = 40
@@ -89,7 +89,11 @@ def talker():
         pub.publish(bridge.cv2_to_imgmsg(rawCapture.array, 'bgr8')) # pulish the image on the topic
         rawCapture.truncate(0) # truncate the raw capture and free the buffer
 	#rate.sleep
-	time.sleep(0.05)
+	#time.sleep(0.05)
+	# publish on slow image topic only 4 frame per second 
+	if(count==0):	
+		slowpub.publish(bridge.cv2_to_imgmsg(rawCapture.array,'bgr8'))
+	count = (count+1)%5
 
 if __name__ == '__main__':
     try:
