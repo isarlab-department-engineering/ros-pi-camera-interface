@@ -3,10 +3,11 @@
 #
 # This script gets raw pictures from raspberry camera and
 # uploads them on the image_topic topic, after converting
-# them with openCV libraries
+# them using openCV libraries. It also reads from the Serial
+# port to check the brightness sensor (made with Arduino)
 #
 # script by Andrea Fioroni - andrifiore@gmail.com
-# GitHub repo: https://github.com/tanicar/rospibot_project
+# GitHub repo: https://github.com/isarlab-department-engineering/ros-pi-camera-interface
 #
 
 from __future__ import print_function 
