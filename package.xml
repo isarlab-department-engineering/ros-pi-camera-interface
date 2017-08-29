@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>image_converter</name>
+  <name>pi_camera_interface</name>
   <version>1.0.0</version>
   <description>Convert OpenCV images to ROS' image_message</description>
 
