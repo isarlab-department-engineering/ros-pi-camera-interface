@@ -10,6 +10,9 @@
 # GitHub repo: https://github.com/isarlab-department-engineering/ros-pi-camera-interface
 #
 
+## NOTE. DEFINE RESOLUTION
+## NOTE. USED COMPRESSED IMAGE
+
 from __future__ import print_function 
 import roslib 
 roslib.load_manifest('image_converter') 
@@ -26,7 +29,7 @@ import serial
 
 def talker():
     pub = rospy.Publisher('image_topic', Image, queue_size=1) # publish on image_topic topic
-    slowpub = rospy.Publisher('slow_image_topic',Image,queue_size=1) # publish only some frames on slow image topic
+    # slowpub = rospy.Publisher('slow_image_topic',Image,queue_size=1) # publish only some frames on slow image topic
     rospy.init_node('image_converter_talker', anonymous=True) # start a image_converter_talker node
 
     serialAvailable = 0
@@ -92,9 +95,9 @@ def talker():
 	#rate.sleep
 	#time.sleep(0.05)
 	# publish on slow image topic only 4 frame per second 
-	if(count==0):	
-		slowpub.publish(bridge.cv2_to_imgmsg(rawCapture.array,'bgr8'))
-	count = (count+1)%5
+	# if(count==0):	
+		# slowpub.publish(bridge.cv2_to_imgmsg(rawCapture.array,'bgr8'))
+	# count = (count+1)%5
 
 if __name__ == '__main__':
     try:
