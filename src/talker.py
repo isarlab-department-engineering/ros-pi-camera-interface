@@ -15,7 +15,7 @@
 
 from __future__ import print_function 
 import roslib 
-roslib.load_manifest('image_converter') 
+roslib.load_manifest('pi_camera_interface') 
 import rospy 
 import sys 
 from std_msgs.msg import String 
